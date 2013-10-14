@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BodyMix</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+    <string name="delete_playlist">Delete</string>
+    <string name="edit_playlist">Edit</string>
+    <string name="new_playlist">New</string>
+    <string name="play">Play</string>
+    <string name="select">Select</string>
+    <string name="select_a_track">-- SELECT A TRACK --</string>
+    <string name="sort">Sort</string>
+    <string name="yes">Yes</string>
+    
+    <string name="create_new_playlist">Create new playlist</string>
+    <string name="playlist_name">Name your playlist</string>
+    <string name="playlist_type">What class is this for?</string>
+    <string name="playlist_length">How many tracks should it have?</string>
+    
+    <string name="confirm_delete">Deleting Playlist! Are you sure?</string>
+    
+    <string name="playlists">Playlists</string>
+    <string name="track">Track</string>
+    <string name="tracks">Tracks</string>
+    <string name="song">Song</string>
+    <string name="songs">Songs</string>
+    <string name="albums">Albums</string>
+    
+    <string name="title">Title</string>
+    <string name="artist">Artist</string>
+    <string name="album">Album</string>
+    <string name="length">Length</string>
+    <string name="total_length">Total Length</string>
+    <string name="track_number">Track #</string>
+    
+    <string name="name_required">Name is required</string>
+    
+    <string name="bodycombat">BodyCombat</string>
+    <string name="bodypump">BodyPump</string>
+</resources>

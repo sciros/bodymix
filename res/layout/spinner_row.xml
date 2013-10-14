@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/spinner_background"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/programIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:contentDescription="@string/album" />
+
+    <TextView
+        android:id="@+id/spinnerText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/programIcon"
+        android:layout_toRightOf="@+id/programIcon"
+        android:ellipsize="marquee"
+        android:gravity="center"
+        android:singleLine="true" 
+        android:textColor="@color/lightCeladon"
+        android:text="@string/bodycombat"
+        android:textAlignment="center"
+        android:textSize="22sp"/>
+
+</RelativeLayout>

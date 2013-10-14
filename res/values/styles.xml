@@ -1,0 +1,32 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+    </style>
+    
+    <style name="SpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textAppearance">@style/SpinnerItemTextAppearance</item>
+        <item name="android:textColorLink">@android:color/black</item>
+        <item name="android:textColorHint">@android:color/black</item>
+    </style>
+    
+    <style name="SpinnerItemTextAppearance" parent="android:TextAppearance.Widget.TextView">
+        <item name="android:textColor">@color/lightCreamsicle</item>
+    </style>
+    
+    <style name="SpinnerDropDownItem" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/lightCreamsicle</item>
+    </style>
+</resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dp"
+    android:background="@drawable/gradient_green_1">
+    
+    <ImageView
+        android:id="@+id/track_icon"
+        android:layout_width="50dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="6dip"
+        android:contentDescription="@string/track_number" />
+    
+    <TextView
+        android:id="@+id/track_number"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:layout_alignLeft="@id/track_icon"
+        android:layout_alignRight="@id/track_icon"
+        android:textColor="@android:color/black"
+        android:textSize="35sp" />
+        
+    <TextView
+        android:id="@+id/track_title"
+        android:layout_width="fill_parent"
+        android:layout_height="18dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/track_icon"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="@string/title"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+    
+    <TextView
+        android:id="@+id/track_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toRightOf="@id/track_icon"
+        android:layout_below="@id/track_title"
+        android:gravity="center_vertical"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:textSize="14sp"/>
+</RelativeLayout>

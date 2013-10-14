@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- orange -->
+    <color name="creamsicle">#ffd070</color>
+    <color name="lightCreamsicle">#ffd792</color>
+    
+    <!-- green -->
+    <color name="lightCeladon">#bfd2b0</color>
+    <color name="lightLime">#e2f0b6</color>
+    <color name="darkGreen">#335533</color>
+    
+    <!-- gray -->
+    <color name="lightSlate">#b0bfd2</color>
+    <color name="lightGray">#bbbbbb</color>
+    <color name="gray">#777777</color>
+    <color name="darkGray">#333333</color>
+</resources>

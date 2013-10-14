@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkGray"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/errorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF6666"
+        android:text="" />
+    
+    <EditText
+        android:id="@+id/playlist_name_text_field"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="@string/playlist_name"
+        android:textColorHint="@android:color/darker_gray"
+        android:textColor="@android:color/background_dark"
+        android:ems="10" 
+        android:background="@drawable/textfield_search_empty_selected"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/playlist_type"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColorHint="@color/darkGray" />
+    
+    <Spinner
+        android:id="@+id/playlist_type_spinner"
+        style="@style/SpinnerItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/spinner_selector" />
+
+    <TextView
+        android:id="@+id/playlist_length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/playlist_length"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColorHint="@color/darkGray" />
+
+    <NumberPicker
+        android:id="@+id/playlist_length_number_picker"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/darkGray" />
+</LinearLayout>
