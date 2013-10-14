@@ -15,8 +15,10 @@ import net.sciros.bodymix.listener.SwapFragmentsListener;
 import net.sciros.bodymix.userstate.RunningSession;
 import net.sciros.bodymix.userstate.UserStateConstants;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -113,14 +115,31 @@ public class PlaylistFragment extends ListFragment {
     }
     
     private void addOnClickListenerToPlayButton (LayoutInflater inflater, final Playlist playlist) {
-        View heading = inflater.inflate(R.layout.playlist_heading, null);
+        View heading = this.getView();
         ImageButton playButton = (ImageButton) heading.findViewById(R.id.play_button);
+        final Context context = this.getActivity();
         playButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick (View v) {
                 String playlistPath = playlist.getFilePath();
                 if (playlistPath != null) {
                     //see about playing the music... possible or not?
+                    String selection = MediaStore.Audio.Playlists.DATA + "=?";
+                    String[] selectionArgs = { playlistPath };
+                    Cursor cursor = context.getContentResolver().query(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI, 
+                            null, selection, selectionArgs, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        String playlistId = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Playlists._ID));
+                        cursor.close();
+                        
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setComponent(new ComponentName("com.android.music", "com.android.music.PlaylistBrowserActivity"));
+                        intent.setType(MediaStore.Audio.Playlists.CONTENT_TYPE);
+                        intent.setFlags(0x10000000);
+                        intent.putExtra("oneshot",false);
+                        intent.putExtra("playlist", playlistId);
+                        startActivity(intent);
+                    }
                 }
             }
         });
