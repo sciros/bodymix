@@ -142,18 +142,19 @@ public class PlaylistsFragment extends ListFragment implements PlaylistsInteract
     
     private void createPlaylistJsonFile (Playlist playlist, File playlistJsonFile) {
         try {
-            PrintWriter writer = new PrintWriter(playlistJsonFile);
-            
             //need to fill out playlist's type! this is critical
             AlbumType type = extrapolateAlbumType(playlist);
-            playlist.setType(type);
-            if (playlist.getLength() == null) { //if length not set, add a default
-                playlist.setLength(playlist.guessLengthByPlaylistType());
+            if (type != null) {
+                PrintWriter writer = new PrintWriter(playlistJsonFile);
+                playlist.setType(type);
+                if (playlist.getLength() == null) { //if length not set, add a default
+                    playlist.setLength(playlist.guessLengthByPlaylistType());
+                }
+                
+                String playlistAsJson = jsonParser.toJson(playlist);
+                writer.println(playlistAsJson);
+                writer.close();
             }
-            
-            String playlistAsJson = jsonParser.toJson(playlist);
-            writer.println(playlistAsJson);
-            writer.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

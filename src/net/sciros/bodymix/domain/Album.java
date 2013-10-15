@@ -26,12 +26,16 @@ public class Album implements Serializable {
     public void setTracks (List<Track> value) { this.tracks = value; }
     
     public void assignTypeAndNumberBasedOnName () {
-        type = guessAlbumTypeFromAlbumName(name);
-        number = extractNumberFromAlbumName(name);
+        if (type == null) {
+            type = guessAlbumTypeFromAlbumName(name);
+        }
+        if (number == null) {
+            number = extractNumberFromAlbumName(name);
+        }
     }
     
     public AlbumType guessAlbumTypeFromAlbumName (String albumName) {
-        AlbumType albumType = AlbumType.BODYPUMP;
+        AlbumType albumType = null;
         String capitalizedAlbumName = albumName.toUpperCase(); //TODO fix locale stuff
         for (AlbumType type : AlbumType.values()) {
             if (capitalizedAlbumName.contains(type.getShortHand())) {

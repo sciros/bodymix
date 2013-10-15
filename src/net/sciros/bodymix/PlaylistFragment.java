@@ -15,7 +15,7 @@ import net.sciros.bodymix.listener.SwapFragmentsListener;
 import net.sciros.bodymix.userstate.RunningSession;
 import net.sciros.bodymix.userstate.UserStateConstants;
 import android.app.AlertDialog;
-import android.content.ComponentName;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -133,10 +133,9 @@ public class PlaylistFragment extends ListFragment {
                         cursor.close();
                         
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setComponent(new ComponentName("com.android.music", "com.android.music.PlaylistBrowserActivity"));
+                        Uri playlistUri = ContentUris.withAppendedId(MediaStore.Audio.Playlists.EXTERNAL_CONTENT_URI, Long.valueOf(playlistId));
+                        intent.setData(playlistUri);
                         intent.setType(MediaStore.Audio.Playlists.CONTENT_TYPE);
-                        intent.setFlags(0x10000000);
-                        intent.putExtra("oneshot",false);
                         intent.putExtra("playlist", playlistId);
                         startActivity(intent);
                     }

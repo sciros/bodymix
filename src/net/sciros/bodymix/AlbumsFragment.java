@@ -8,6 +8,7 @@ import java.util.Map;
 
 import net.sciros.bodymix.adapter.AlbumsAdapter;
 import net.sciros.bodymix.domain.Album;
+import net.sciros.bodymix.domain.AlbumType;
 import net.sciros.bodymix.domain.InternalConstants;
 import net.sciros.bodymix.domain.Track;
 import net.sciros.bodymix.io.CursorExtractionUtility;
@@ -84,8 +85,12 @@ public class AlbumsFragment extends Fragment implements LoaderManager.LoaderCall
             MediaStore.Audio.Media.TRACK,
             MediaStore.Files.FileColumns.MIME_TYPE
         };
-        String selectionMimeType = MediaStore.Files.FileColumns.MIME_TYPE + "=?";
-        String[] selectionParameterValues = { MimeTypeMap.getSingleton().getMimeTypeFromExtension("mp3") };
+        String album = MediaStore.Audio.Media.ALBUM;
+        String selectionMimeType = MediaStore.Files.FileColumns.MIME_TYPE + "=?" + " AND (upper("+
+            album+") like ? OR upper("+album+") like ? OR upper("+album+") like ? OR upper("+
+            album+") like ? OR upper("+album+") like ?)";
+        String[] selectionParameterValues = { MimeTypeMap.getSingleton().getMimeTypeFromExtension("mp3"),
+                "%BODY%", "%RPM%", "%BAM%", "%CX%", "%GRIT%" };
         String sortOrder = MediaStore.Audio.Media.TRACK;
         
         CursorLoader cursorLoader = new CursorLoader(this.getActivity(), externalMusicUri, projection,
@@ -99,13 +104,18 @@ public class AlbumsFragment extends Fragment implements LoaderManager.LoaderCall
             if (cursor.moveToFirst()) {
                 Map<String,List<Track>> albumMap = new HashMap<String,List<Track>>();
                 
+                Album utilAlbum = new Album();
+                
                 do {
                     Track track = CursorExtractionUtility.extractTrackInfoFromCursor(cursor);
                     String albumName = track.getAlbum();
-                    if (!albumMap.containsKey(albumName)) {
-                        albumMap.put(albumName, new ArrayList<Track>());
+                    AlbumType type = utilAlbum.guessAlbumTypeFromAlbumName(albumName);
+                    if (type != null) {
+                        if (!albumMap.containsKey(albumName)) {
+                            albumMap.put(albumName, new ArrayList<Track>());
+                        }
+                        albumMap.get(albumName).add(track);
                     }
-                    albumMap.get(albumName).add(track);
                 } while (cursor.moveToNext());
                 
                 List<Album> albumList = new ArrayList<Album>();
