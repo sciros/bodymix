@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/darkGray"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
 
     <TextView
         android:id="@+id/errorText"
@@ -19,6 +21,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:hint="@string/playlist_name"
+        android:singleLine="true"
         android:textColorHint="@android:color/darker_gray"
         android:textColor="@android:color/background_dark"
         android:ems="10" 

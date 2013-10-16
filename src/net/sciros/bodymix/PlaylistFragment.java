@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import net.sciros.bodymix.adapter.TrackAdapter;
 import net.sciros.bodymix.domain.InternalConstants;
@@ -14,6 +15,7 @@ import net.sciros.bodymix.io.PlaylistRefresher;
 import net.sciros.bodymix.listener.SwapFragmentsListener;
 import net.sciros.bodymix.userstate.RunningSession;
 import net.sciros.bodymix.userstate.UserStateConstants;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.Context;
@@ -46,11 +48,11 @@ public class PlaylistFragment extends ListFragment {
         return playlistFragment;
     }
     
+    @SuppressLint("DefaultLocale")
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.playlist, container, false);
         
-        //TODO perhaps extract from savedInstanceState or something
         Playlist playlist = (Playlist) RunningSession.getInstance().getAttributes().get(UserStateConstants.CURRENT_PLAYLIST);
         if (playlist != null && (playlist.getTracks() == null || playlist.getTracks().size() == 0)) {
             //read file line by line and put together stuff by looking for songs from mediastore
@@ -60,6 +62,16 @@ public class PlaylistFragment extends ListFragment {
         }
         
         //ImageView icon = (ImageView) view.findViewById(R.id.)
+        playlist.fillInRunningTimeInSecondsFromTracks();
+        TextView runningTimeView = (TextView) view.findViewById(R.id.running_time);
+        Integer runningTime = playlist.getRunningTimeInSeconds();
+        
+        String runningTimeFormatted = String.format("%d:%02d:%02d", 
+                TimeUnit.SECONDS.toHours(runningTime),
+                TimeUnit.SECONDS.toMinutes(runningTime) - TimeUnit.HOURS.toMinutes(TimeUnit.SECONDS.toHours(runningTime)),
+                runningTime - TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(runningTime)));
+        
+        runningTimeView.setText(this.getActivity().getString(R.string.total_length) + " " + runningTimeFormatted);
         
         TextView titleView = (TextView) view.findViewById(R.id.title);
         titleView.setText(playlist.getName());

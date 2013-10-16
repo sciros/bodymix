@@ -58,7 +58,6 @@ public class PlaylistsFragment extends ListFragment implements PlaylistsInteract
         }
         
         View view = inflater.inflate(R.layout.playlists, container, false);
-//        View header = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.playlists_heading, null);
         ImageButton newPlaylistButton = (ImageButton) view.findViewById(R.id.new_button);
         newPlaylistButton.setOnClickListener(new OnClickListener () {
             @Override
@@ -161,6 +160,7 @@ public class PlaylistsFragment extends ListFragment implements PlaylistsInteract
     }
 
     private AlbumType extrapolateAlbumType (Playlist playlist) {
+        //TODO what if no album type determined? probably defaulting is bad...
         AlbumType type = AlbumType.BODYPUMP;
         
         BufferedReader reader;

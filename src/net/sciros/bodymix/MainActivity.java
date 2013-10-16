@@ -19,15 +19,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener, PlaylistRefresher {
     /**
@@ -215,7 +220,48 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     private View generateNewPlaylistFormView () {
         LayoutInflater inflater = (LayoutInflater) this.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View newPlaylistFormView = inflater.inflate(R.layout.new_playlist, null, false);
+        newPlaylistFormView.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                EditText playlistNameTextField = (EditText) view.findViewById(R.id.playlist_name_text_field);
+                float topLeftY = playlistNameTextField.getY();
+                float topLeftX = playlistNameTextField.getX();
+                float bottomRightY = topLeftY + playlistNameTextField.getHeight();
+                float bottomRightX = topLeftX + playlistNameTextField.getWidth();
+                if(playlistNameTextField.isFocused()){
+                    if(event.getY() < topLeftY || event.getY() > bottomRightY ||
+                       event.getX() < topLeftX || event.getX() > bottomRightX){
+                        //Will only enter this if the EditText already has focus
+                        //And if a touch event happens outside of the EditText
+                        playlistNameTextField.clearFocus();
+                        hideVirtualKeyboard(view);
+                    }
+                }
+                //Toast.makeText(getBaseContext(), "Clicked", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+        
+        EditText playlistNameTextField = (EditText) newPlaylistFormView.findViewById(R.id.playlist_name_text_field);
+        playlistNameTextField.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView view, int keyCode, KeyEvent event) {
+                if (event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    hideVirtualKeyboard(view);
+                    //return true;
+                }
+                return false;
+            }
+        });
+        
         Spinner playlistTypeSpinner = (Spinner) newPlaylistFormView.findViewById(R.id.playlist_type_spinner);
+        playlistTypeSpinner.setOnTouchListener(new OnTouchListener () {
+            @Override
+            public boolean onTouch (View v, MotionEvent event) {
+                hideVirtualKeyboard(v);
+                return false;
+            }
+        });
         playlistTypeSpinner.setAdapter(new PlaylistTypeSpinnerAdapter(this, AlbumType.values()));
         NumberPicker playlistLengthNumberPicker = (NumberPicker) newPlaylistFormView.findViewById(R.id.playlist_length_number_picker);
         playlistLengthNumberPicker.setMaxValue(16);
@@ -232,5 +278,10 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
     public void refreshPlaylists () {
         PlaylistsFragment playlistsFragment = (PlaylistsFragment) sectionsPagerAdapter.getRegisteredFragment(PlaylistsFragment.class.getSimpleName());
         playlistsFragment.getAdapter().notifyDataSetChanged();
+    }
+    
+    private void hideVirtualKeyboard (View view) {
+        InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

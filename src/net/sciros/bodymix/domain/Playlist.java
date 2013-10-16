@@ -34,11 +34,24 @@ public class Playlist extends Album {
     public Integer getLength () { return this.length; }
     public void setLength (Integer value) { this.length = value; }
     
+    private Integer runningTimeInSeconds;
+    public Integer getRunningTimeInSeconds () { return this.runningTimeInSeconds; }
+    public void setRunningTimeInSeconds (Integer value) { this.runningTimeInSeconds = value; }
+    
     public void fillInFilePathUsingName () {
         if (this.getName() != null && !this.getName().equals("")) {
             filePath = Environment.getExternalStorageDirectory() + 
                     InternalConstants.PATH_TO_PLAYLISTS + 
                     "/" + this.getName() + InternalConstants.M3U_EXTENSION;
+        }
+    }
+    
+    public void fillInRunningTimeInSecondsFromTracks () {
+        runningTimeInSeconds = 0;
+        for (Track track : this.getTracks()) {
+            if (track != null && track.getTrackDurationInSeconds() != null) {
+                runningTimeInSeconds += track.getTrackDurationInSeconds();
+            }
         }
     }
     
@@ -61,8 +74,8 @@ public class Playlist extends Album {
             PrintWriter writer = new PrintWriter(playlistM3uFile);
             writer.println(InternalConstants.M3U_HEADER);
             for (Track track : this.getTracks()) {
-                String trackInfo = track.getTrackLengthInSeconds() == null ? track.getTitle() : 
-                    track.getTrackLengthInSeconds() + "," + track.getTitle();
+                String trackInfo = track.getTrackDurationInSeconds() == null ? track.getTitle() : 
+                    track.getTrackDurationInSeconds() + "," + track.getTitle();
                 writer.println(InternalConstants.M3U_INFO_PREFIX + trackInfo);
                 writer.println(track.getPath());
             }

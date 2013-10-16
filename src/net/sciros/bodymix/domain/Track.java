@@ -17,11 +17,19 @@ public class Track {
     public Integer getTrackNumber () { return this.trackNumber; }
     public void setTrackNumber (Integer value) { this.trackNumber = value; }
     
-    private Integer trackLengthInSeconds;
-    public Integer getTrackLengthInSeconds () { return this.trackLengthInSeconds; }
-    public void setTrackLengthInSeconds (Integer value) { this.trackLengthInSeconds = value; }
+    private Integer trackDurationInSeconds;
+    public Integer getTrackDurationInSeconds () { return this.trackDurationInSeconds; }
+    public void setTrackDurationInSeconds (Integer value) { this.trackDurationInSeconds = value; }
     
     private String filePath;
     public String getPath () { return this.filePath; }
     public void setPath (String value) { this.filePath = value; }
+    
+    private Boolean pauseOnFinish;
+    public Boolean getPauseOnFinish () { return this.pauseOnFinish; }
+    public void setPauseOnFinish (Boolean value) { this.pauseOnFinish = value; }
+    
+    private Integer silenceOnFinishInSeconds;
+    public Integer getSilenceOnFinishInSeconds () { return this.silenceOnFinishInSeconds; }
+    public void setSilenceOnFinishInSeconds (Integer value) { this.silenceOnFinishInSeconds = value; }
 }

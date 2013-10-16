@@ -21,7 +21,7 @@ public class CursorExtractionUtility {
         track.setArtist(artistName);
         track.setPath(fullPath);
         track.setTitle(trackTitle);
-        track.setTrackLengthInSeconds(duration);
+        track.setTrackDurationInSeconds(duration);
         track.setTrackNumber(trackNumber);
         
         return track;

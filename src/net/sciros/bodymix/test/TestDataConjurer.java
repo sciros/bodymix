@@ -51,7 +51,7 @@ public class TestDataConjurer {
         track.setArtist("Scooter vs Hixxy");
         track.setPath("file:///user/music/bodycombat/BodyCombat 90/track1.mp3");
         track.setTitle(title);
-        track.setTrackLengthInSeconds(340);
+        track.setTrackDurationInSeconds(340);
         track.setTrackNumber(number);
         
         return track;
