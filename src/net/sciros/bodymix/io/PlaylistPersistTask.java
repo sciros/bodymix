@@ -9,6 +9,7 @@ import net.sciros.bodymix.userstate.RunningSession;
 import net.sciros.bodymix.userstate.UserStateConstants;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -64,7 +65,8 @@ public class PlaylistPersistTask extends AsyncTask<Playlist, Integer, Boolean> {
             }
             //add to media store
             Uri playlistUri = Uri.parse("file://"+Environment.getExternalStorageDirectory()+InternalConstants.PATH_TO_PLAYLISTS);
-            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,playlistUri));
+            //context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED,playlistUri));
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, playlistUri));
         }
     }
 }
